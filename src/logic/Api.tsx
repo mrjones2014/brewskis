@@ -1,5 +1,4 @@
 import Brewery from './Brewery';
-import { promised } from 'q';
 const axios = require('axios');
 const url = function (endpoint: string): string {
     return `https://api.openbrewerydb.org/${endpoint}`;

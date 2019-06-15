@@ -66,9 +66,9 @@ export default class DataPanel extends React.Component<Props, State> {
             )
         )
         return (
-            <div className="panel panel-default vh100 scrollable">
+            <div className="panel panel-default vh100">
                 <div className="panel-heading"><h1>Check Out Some Brewskis</h1></div>
-                <div className="panel-body">
+                <div className="panel-body mh-vh-100 scrollable">
                     <div className="container-fluid">
                         <div className="row">{ rows }</div>
                     </div>

@@ -1,5 +1,9 @@
 .vh100 {
     max-height: 100vh;
+    margin-bottom: 0!important;
+}
+.mh-vh-100 {
+    max-height: calc(100vh - 100px);
 }
 .scrollable {
     overflow-y: auto;

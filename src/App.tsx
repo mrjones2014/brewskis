@@ -1,5 +1,6 @@
 import React from 'react';
 import DataPanel from './view/DataPanel';
+require('./BootstrapDarkTheme.css');
 
 const App: React.FC = () => {
   return (

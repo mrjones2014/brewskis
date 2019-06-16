@@ -3,7 +3,24 @@ import { RouteComponentProps } from 'react-router';
 import Brewery from '../logic/Brewery';
 import Api from '../logic/Api';
 import LoadingSpinner from './LoadingSpinner';
+import GoogleMapReact from 'google-map-react';
 require('./DetailView.scss');
+
+const MapPin = ({lat, lng}) => (
+    <div style={{
+      color: 'red', 
+      padding: '15px 10px',
+      display: 'inline-flex',
+      textAlign: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '100%',
+      transform: 'translate(-50%, -50%)',
+      fontSize: '500%'
+    }}>
+      <i className="fa fa-map-pin"></i>
+    </div>
+)
 
 interface UrlParams {
     id: string;
@@ -14,9 +31,12 @@ interface Props extends RouteComponentProps<UrlParams> {}
 class State {
     brewery: Brewery
     loading: boolean
+    mapCenter: object
     constructor(brewery: Brewery = null, loading: boolean = true) {
         this.brewery = brewery
         this.loading = loading;
+        if (brewery) this.mapCenter = {lat: Number(brewery.latitude), lng: Number(brewery.longitude)};
+        else this.mapCenter = null;
     }
 }
 
@@ -29,7 +49,7 @@ export default class DetailView extends React.Component<Props, State> {
     componentDidMount() {
         const id = this.props.match.params.id;
         this.setState({loading: true});
-        Api.retrieve(id).then(brewery => this.setState({brewery: brewery})).finally(() => this.setState({loading: false}));
+        Api.retrieve(id).then(brewery => this.setState({brewery: brewery, mapCenter: {lat: Number(brewery.latitude), lng: Number(brewery.longitude)}})).finally(() => this.setState({loading: false}));
     }
 
     render () {
@@ -42,7 +62,7 @@ export default class DetailView extends React.Component<Props, State> {
                     <p>{brewery.brewery_type.charAt(0).toUpperCase() + brewery.brewery_type.substr(1)} Brewery</p>
                 </div>
                 <div className="panel-body">
-                    <div className="container">
+                    <div className="container-fluid">
                         <div className="row">
                             <div className="col-xs-3">
                                 <i className="fa fa-map-marker left-icon"></i>
@@ -62,7 +82,20 @@ export default class DetailView extends React.Component<Props, State> {
                             <div className="col-xs-12">
                                 <i className="fa fa-map-pin left-icon"></i>
                                 Long: {brewery.longitude}<br/>
-                                Lat:&nbsp;&nbsp; {brewery.latitude}
+                                Lat:&nbsp;&nbsp;&nbsp; {brewery.latitude}
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <div className="map-container">
+                                    <GoogleMapReact
+                                        bootstrapURLKeys={{key: process.env.REACT_APP_MAPS_API_KEY}}
+                                        defaultCenter={this.state.mapCenter}
+                                        defaultZoom={11}
+                                    >
+                                        <MapPin lat={brewery.latitude} lng={brewery.longitude}/>
+                                    </GoogleMapReact>
+                                </div>
                             </div>
                         </div>
                     </div>

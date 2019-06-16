@@ -1,14 +1,7 @@
 import * as React from 'react';
 require('./LoadingSpinner.scss');
 
-interface Props {}
-class State {}
-
-export default class LoadingSpinner extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-    }
-
+export default class LoadingSpinner extends React.Component {
     render() {
         return (
             <div className="lds-default">

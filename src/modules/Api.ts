@@ -1,4 +1,5 @@
 import Brewery from './Brewery';
+import Filter from './Filter';
 const axios = require('axios');
 const url = function (endpoint: string): string {
     return `https://api.openbrewerydb.org/${endpoint}`;
@@ -17,10 +18,10 @@ const get = function(endpoint: string): Promise<Brewery> {
 };
 
 export default {
-    listAll(sort: string): Promise<Array<Brewery>> {
+    listAll(filter: Filter = null): Promise<Array<Brewery>> {
         let endpoint = 'breweries';
-        if (sort) endpoint = `${endpoint}?sort=${sort}`;
-        return getMultiple('breweries');
+        if (filter) endpoint = `${endpoint}?${filter.toUrlParams()}`;
+        return getMultiple(endpoint);
     },
     retrieve(id: string): Promise<Brewery> {
         return get(`breweries/${id}`)

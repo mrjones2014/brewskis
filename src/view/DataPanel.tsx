@@ -27,7 +27,10 @@ export default class DataPanel extends React.Component<Props, State> {
         super(props);
         this.state = new State();
         this.doSearch = this.doSearch.bind(this);
+<<<<<<< HEAD
         this.resetSearch = this.resetSearch.bind(this);
+=======
+>>>>>>> b43a45ed250d68a10470d3c42be87bc3815d2459
     }
 
     componentDidMount() {
@@ -37,14 +40,18 @@ export default class DataPanel extends React.Component<Props, State> {
     doSearch() {
         this.setState({loading: true});
         Api.listAll(this.state.filter).then(breweries => this.setState({breweries: breweries})).finally(() => this.setState({loading: false}));
+<<<<<<< HEAD
     }
 
     resetSearch() {
         this.setState({filter: new Filter()}, () => this.doSearch());
+=======
+>>>>>>> b43a45ed250d68a10470d3c42be87bc3815d2459
     }
 
     render() {
         if (this.state.loading) return (<LoadingSpinner/>);
+<<<<<<< HEAD
         let rows = this.state.breweries.map(brewery => (<BreweryCard brewery={brewery} key={brewery.id}/>));
         if (rows.length === 0) rows = [(
             <div className="no-results-row bg-info text-info" key="no-results-found">
@@ -53,6 +60,9 @@ export default class DataPanel extends React.Component<Props, State> {
                 &nbsp;&nbsp;<i className="fa fa-beer"></i>
             </div>
         )]
+=======
+        let rows = this.state.breweries.map(brewery => (<BreweryCard brewery={brewery} key={brewery.id}/>))
+>>>>>>> b43a45ed250d68a10470d3c42be87bc3815d2459
         return (
             <div className="panel panel-default vh100">
                 <div className="panel-heading">

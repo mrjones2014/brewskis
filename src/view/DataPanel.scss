@@ -12,6 +12,21 @@ body {
     overflow-y: auto;
 }
 
+.input-label {
+    display: block;
+}
+
+.form-group {
+    margin-right: 5px;
+}
+
+.no-results-row {
+    font-size: 200%;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .brewery-card {
     border: 1px solid #cccc;
     border-radius: 4px;

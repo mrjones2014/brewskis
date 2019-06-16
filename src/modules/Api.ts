@@ -20,7 +20,7 @@ const get = function(endpoint: string): Promise<Brewery> {
 export default {
     listAll(filter: Filter = null): Promise<Array<Brewery>> {
         let endpoint = 'breweries';
-        if (filter) endpoint = `${endpoint}?${filter.toUrlParams()}`;
+        if (filter) endpoint = `${endpoint}?${new Filter(filter).toUrlParams()}`;
         return getMultiple(endpoint);
     },
     retrieve(id: string): Promise<Brewery> {

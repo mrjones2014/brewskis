@@ -10,10 +10,6 @@ interface Props {
 }
 
 export default class BreweryCard extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         const brewery = this.props.brewery;
         return (

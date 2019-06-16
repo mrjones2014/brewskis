@@ -1,18 +1,16 @@
 import * as React from 'react';
 import Brewery from '../logic/Brewery';
 import Api from '../logic/Api';
-import DetailView from './DetailView';
+import { Link } from 'react-router-dom';
 require('./DataPanel.scss');
 require('@fortawesome/fontawesome-free/css/all.css');
 
 class State {
     loading: boolean
     breweries: Array<Brewery>
-    detailViewId: number
     constructor(loading: boolean = false, breweries: Array<Brewery> = []) {
         this.loading = loading;
         this.breweries = breweries;
-        this.detailViewId = 0;
     }
 }
 
@@ -27,10 +25,6 @@ export default class DataPanel extends React.Component<Props, State> {
     componentDidMount() {
         this.setState({loading: true});
         Api.listAll().then(breweries => this.setState({breweries: breweries})).finally(() => this.setState({loading: false}));
-    }
-
-    setSelected(brewery: Brewery) {
-        this.setState({detailViewId: brewery.id});
     }
 
     render() {
@@ -60,16 +54,15 @@ export default class DataPanel extends React.Component<Props, State> {
                             </div>
                             <div className="col-xs-6">
                                 <div className="pull-right">
-                                    <button type="button" className="btn btn-primary" onClick={() => this.setSelected(brewery)}>
+                                    <Link className="btn btn-primary" to={`/${brewery.id}`}>
                                         <i className="fa fa-beer beer-info-icon"></i>
                                         More Info
-                                    </button>
+                                    </Link>
                                 </div>
                                 <span className="clearfix"></span>
                             </div>
                         </div>
                     </div>
-                    <DetailView showModal={this.state.detailViewId === brewery.id} brewery={brewery}/>
                 </div>
             )
         )

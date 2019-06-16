@@ -6,7 +6,7 @@ require('@fortawesome/fontawesome-free/css/all.css');
 
 class State {
     width: number
-    constructor(width: number = 0) {
+    constructor(width: number = window.innerWidth) {
         this.width = width;
     }
 }
@@ -18,8 +18,9 @@ export default class BreweryCard extends React.Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = new State();
+        this.handleWindowSizeChange = this.handleWindowSizeChange.bind(this);
     }
-    
+
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
     }
@@ -65,7 +66,7 @@ export default class BreweryCard extends React.Component<Props, State> {
                             </div>
                         }
                         </div>
-                        <div className={isMobile ? 'col-xs-12' : 'col-xs-3'}>
+                        <div className={isMobile ? 'col-xs-12' : 'col-xs-6'}>
                             <div className={isMobile ? 'pt-15' : 'pull-right'}>
                                 <Link className="btn btn-primary" to={`/${brewery.id}`}>
                                     <i className="fa fa-beer beer-info-icon"></i>

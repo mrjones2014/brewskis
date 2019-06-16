@@ -1,12 +1,9 @@
-body {
-    background-image: url('/beer.jpeg');
-}
 .vh100 {
     max-height: 100vh;
     margin-bottom: 0!important;
 }
 .mh-vh-100 {
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 150px);
 }
 .scrollable {
     overflow-y: auto;
@@ -46,5 +43,17 @@ body {
         .beer-info-icon {
             margin-right: 5px;
         }
+
+        .pt-15 {
+            padding-top: 15px;
+        }
     }
+}
+
+#filters-row {
+    margin-bottom: 15px;
+}
+
+.main-panel {
+    margin-top: 25px;
 }

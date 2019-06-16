@@ -4,14 +4,38 @@ import { Link } from 'react-router-dom';
 require('./DataPanel.scss');
 require('@fortawesome/fontawesome-free/css/all.css');
 
-interface State {}
+class State {
+    width: number
+    constructor(width: number = 0) {
+        this.width = width;
+    }
+}
 interface Props {
     brewery: Brewery
 }
 
 export default class BreweryCard extends React.Component<Props, State> {
+    constructor(props) {
+        super(props);
+        this.state = new State();
+    }
+    
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+
+    componentWillUnmount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+
+    handleWindowSizeChange() {
+        this.setState({width: window.innerWidth});
+    }
+
     render() {
         const brewery = this.props.brewery;
+        const width = this.state.width;
+        const isMobile = width <= 500;
         return (
             <div className="col-xs-12 brewery-card" key={brewery.id}>
                 <div className="container-fluid">
@@ -22,12 +46,12 @@ export default class BreweryCard extends React.Component<Props, State> {
                         </div>
                     </div>
                     <div className="row info-row">
-                        <div className="col-xs-3">
+                        <div className={isMobile ? 'col-xs-12' : 'col-xs-3'}>
                             <i className="fa fa-map-marker left-icon"></i>
                             {brewery.street}, {brewery.city}<br/>
                             {brewery.state}, {brewery.country} {brewery.postal_code}
                         </div>
-                        <div className="col-xs-3">
+                        <div className={isMobile ? 'col-xs-12' : 'col-xs-3'}>
                         {brewery.phone !== null && brewery.phone !== '' &&
                             <div>
                                 <i className="fa fa-phone left-icon"></i>
@@ -41,8 +65,8 @@ export default class BreweryCard extends React.Component<Props, State> {
                             </div>
                         }
                         </div>
-                        <div className="col-xs-6">
-                            <div className="pull-right">
+                        <div className={isMobile ? 'col-xs-12' : 'col-xs-3'}>
+                            <div className={isMobile ? 'pt-15' : 'pull-right'}>
                                 <Link className="btn btn-primary" to={`/${brewery.id}`}>
                                     <i className="fa fa-beer beer-info-icon"></i>
                                     More Info

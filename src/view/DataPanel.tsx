@@ -34,7 +34,7 @@ export default class DataPanel extends React.Component<Props, State> {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-xs-12">
-                                <h2><a href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.name}</a></h2>
+                                <h2><Link to={`/${brewery.id}`}>{brewery.name}</Link></h2>
                                 <p>{brewery.brewery_type.charAt(0).toUpperCase() + brewery.brewery_type.substr(1)} Brewery</p>
                             </div>
                         </div>
@@ -46,10 +46,16 @@ export default class DataPanel extends React.Component<Props, State> {
                             </div>
                             <div className="col-xs-3">
                             {brewery.phone !== null && brewery.phone !== '' &&
-                                <span>
+                                <div>
                                     <i className="fa fa-phone left-icon"></i>
                                     {brewery.phone}
-                                </span>
+                                </div>
+                            }
+                            {brewery.website_url &&
+                                <div>
+                                    <i className="fa fa-globe left-icon"></i>
+                                    <a href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.website_url.replace('http://', '').replace('https://', '')}</a>
+                                </div>
                             }
                             </div>
                             <div className="col-xs-6">

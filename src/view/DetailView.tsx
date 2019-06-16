@@ -4,6 +4,7 @@ import Brewery from '../logic/Brewery';
 import Api from '../logic/Api';
 import LoadingSpinner from './LoadingSpinner';
 import GoogleMapReact from 'google-map-react';
+import { Link } from 'react-router-dom';
 require('./DetailView.scss');
 
 const MapPin = ({lat, lng}) => (
@@ -58,8 +59,17 @@ export default class DetailView extends React.Component<Props, State> {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">
-                    <h1><a href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.name}</a></h1>
-                    <p>{brewery.brewery_type.charAt(0).toUpperCase() + brewery.brewery_type.substr(1)} Brewery</p>
+                    <div className="pull-left">
+                        <h1>{brewery.name}</h1>
+                        <p>{brewery.brewery_type.charAt(0).toUpperCase() + brewery.brewery_type.substr(1)} Brewery</p>
+                    </div>
+                    <div className="pull-right">
+                        <Link className="btn btn-primary" to="/">
+                            <i className="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                            Back to List
+                        </Link>
+                    </div>
+                    <span className="clearfix"></span>
                 </div>
                 <div className="panel-body">
                     <div className="container-fluid">
@@ -79,11 +89,17 @@ export default class DetailView extends React.Component<Props, State> {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-xs-12">
+                            <div className="col-xs-3">
                                 <i className="fa fa-map-pin left-icon"></i>
                                 Long: {brewery.longitude}<br/>
                                 Lat:&nbsp;&nbsp;&nbsp; {brewery.latitude}
                             </div>
+                            {brewery.website_url &&
+                                <div className="col-xs-3">
+                                    <i className="fa fa-globe left-icon"></i>
+                                    <a href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.website_url.replace('http://', '').replace('https://', '')}</a>
+                                </div>
+                            }
                         </div>
                         <div className="row">
                             <div className="col-xs-12">

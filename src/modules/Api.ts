@@ -17,7 +17,9 @@ const get = function(endpoint: string): Promise<Brewery> {
 };
 
 export default {
-    listAll(): Promise<Array<Brewery>> {
+    listAll(sort: string): Promise<Array<Brewery>> {
+        let endpoint = 'breweries';
+        if (sort) endpoint = `${endpoint}?sort=${sort}`;
         return getMultiple('breweries');
     },
     retrieve(id: string): Promise<Brewery> {

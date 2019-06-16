@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Brewery from '../logic/Brewery';
-import Api from '../logic/Api';
+import Brewery from '../modules/Brewery';
+import Api from '../modules/Api';
 import LoadingSpinner from './LoadingSpinner';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';

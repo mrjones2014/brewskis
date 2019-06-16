@@ -1,16 +1,20 @@
 import * as React from 'react';
-import Brewery from '../logic/Brewery';
-import Api from '../logic/Api';
-import { Link } from 'react-router-dom';
+import Brewery from '../modules/Brewery';
+import Api from '../modules/Api';
+import BreweryCard from './BreweryCard';
 require('./DataPanel.scss');
 require('@fortawesome/fontawesome-free/css/all.css');
 
 class State {
     loading: boolean
     breweries: Array<Brewery>
-    constructor(loading: boolean = false, breweries: Array<Brewery> = []) {
+    sortField: string
+    sortOrder: string
+    constructor(loading: boolean = false, breweries: Array<Brewery> = [], sortField: string = 'name', sortOrder: string = '+') {
         this.loading = loading;
         this.breweries = breweries;
+        this.sortField = sortField;
+        this.sortOrder = sortOrder;
     }
 }
 
@@ -22,56 +26,17 @@ export default class DataPanel extends React.Component<Props, State> {
         this.state = new State();
     }
 
+    sortParam() {
+        return `${this.state.sortOrder}${this.state.sortField}`;
+    }
+
     componentDidMount() {
         this.setState({loading: true});
         Api.listAll().then(breweries => this.setState({breweries: breweries})).finally(() => this.setState({loading: false}));
     }
 
     render() {
-        let rows = this.state.breweries.map(brewery => 
-            (
-                <div className="col-xs-12 brewery-card" key={brewery.id}>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h2><Link to={`/${brewery.id}`}>{brewery.name}</Link></h2>
-                                <p>{brewery.brewery_type.charAt(0).toUpperCase() + brewery.brewery_type.substr(1)} Brewery</p>
-                            </div>
-                        </div>
-                        <div className="row info-row">
-                            <div className="col-xs-3">
-                                <i className="fa fa-map-marker left-icon"></i>
-                                {brewery.street}, {brewery.city}<br/>
-                                {brewery.state}, {brewery.country} {brewery.postal_code}
-                            </div>
-                            <div className="col-xs-3">
-                            {brewery.phone !== null && brewery.phone !== '' &&
-                                <div>
-                                    <i className="fa fa-phone left-icon"></i>
-                                    {brewery.phone}
-                                </div>
-                            }
-                            {brewery.website_url &&
-                                <div>
-                                    <i className="fa fa-globe left-icon"></i>
-                                    <a href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.website_url.replace('http://', '').replace('https://', '')}</a>
-                                </div>
-                            }
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="pull-right">
-                                    <Link className="btn btn-primary" to={`/${brewery.id}`}>
-                                        <i className="fa fa-beer beer-info-icon"></i>
-                                        More Info
-                                    </Link>
-                                </div>
-                                <span className="clearfix"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        )
+        let rows = this.state.breweries.map(brewery => (<BreweryCard brewery={brewery} key={brewery.id}/>))
         return (
             <div className="panel panel-default vh100">
                 <div className="panel-heading"><h1>Check Out Some Brewskis</h1></div>

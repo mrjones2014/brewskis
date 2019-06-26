@@ -1,6 +1,6 @@
 import Brewery from './Brewery';
 import Filter from './Filter';
-const axios = require('axios');
+import axios from 'axios';
 
 const url = function (endpoint: string): string {
     return `https://api.openbrewerydb.org/${endpoint}`;

@@ -5,7 +5,7 @@ import Api from '../modules/Api';
 import LoadingSpinner from './LoadingSpinner';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
-require('./DetailView.scss');
+import './DetailView.scss';
 
 const MapPin = ({lat, lng}) => (
     <div style={{

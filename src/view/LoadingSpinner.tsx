@@ -1,5 +1,5 @@
 import * as React from 'react';
-require('./LoadingSpinner.scss');
+import './LoadingSpinner.scss';
 
 export default class LoadingSpinner extends React.Component {
     render() {

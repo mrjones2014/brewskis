@@ -3,7 +3,7 @@ import DataPanel from './view/DataPanel';
 import DetailView from './view/DetailView';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
-require('./App.scss');
+import './App.scss';
 
 const App: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Brewery from '../modules/Brewery';
 import { Link } from 'react-router-dom';
-require('./DataPanel.scss');
-require('@fortawesome/fontawesome-free/css/all.css');
+import './DataPanel.scss';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 class State {
     width: number

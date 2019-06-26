@@ -6,8 +6,8 @@ import Filter from '../modules/Filter';
 import Options from '../modules/Options';
 import LoadingSpinner from './LoadingSpinner';
 import { Collapse } from 'react-bootstrap';
-require('./DataPanel.scss');
-require('@fortawesome/fontawesome-free/css/all.css');
+import './DataPanel.scss';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 class State {
     loading: boolean
